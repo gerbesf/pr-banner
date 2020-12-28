@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/pr-banner.iml" filepath="$PROJECT_DIR$/.idea/pr-banner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../pr-server-banner/.idea/pr-server-banner.iml" filepath="$PROJECT_DIR$/../pr-server-banner/.idea/pr-server-banner.iml" />
+    </modules>
+  </component>
+</project>

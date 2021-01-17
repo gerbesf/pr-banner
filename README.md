@@ -54,3 +54,9 @@ Administrative user
 
 ## Manager
 Access **yourdomain/admin**
+
+
+### Cron
+```
+* * * * * curl -silent yourdomain
+```

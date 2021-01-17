@@ -1,7 +1,10 @@
 # PR-Server-Banner *beta*
 Project Reality Server Banner
+![alt text](https://banner.divsul.org/banner.jpg)
 
-**Remove vendor folder for new install**
+
+
+
 
 ## Server requeriments
 ```
@@ -61,3 +64,6 @@ Access **yourdomain/admin**
 ```
 * * * * * curl -silent yourdomain
 ```
+
+### Notes
+**Remove vendor folder for new install**

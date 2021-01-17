@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Helpers\Prspy;
+use App\Models\Server;
 use Spatie\Browsershot\Browsershot;
 
 class BannerController extends Controller
@@ -20,18 +21,25 @@ class BannerController extends Controller
 
     public function proxy(){
 
+
+        if( Server::count() == 0 ){
+            echo 'Banner Not Configured';
+            die();
+        }
+
         $this->populateServers();
         $this->configureServer();
 
         if($this->hostname){
-            Browsershot::url(env('APP_URL').'/banner_base')    ->setScreenshotType('jpeg', 100)
+            @unlink(public_path('banner.jpg'));
+            Browsershot::url(env('APP_URL').'/html')    ->setScreenshotType('jpeg', 100)
                 ->noSandbox()
                 ->windowSize(800, 240)
                 ->save('banner.jpg');
-
         }
 
-        return '<img src="'.env('APP_URL').'/banner.jpg">';
+        return view('welcome');
+        #return '<img src="'.env('APP_URL').'/banner.jpg">';
     }
 
     public function index(){

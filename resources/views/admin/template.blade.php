@@ -4,16 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>{{ env('APP_NAME') }}</title>
 
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
-    <style>
-    </style>
 
     <style>
         body {
@@ -25,7 +20,7 @@
 <div class="container">
 
     <div class="pt-4">
-        <h1>{{ env('APP_NAME') }}</h1>
+        <h3>PR-Banner - {{ env('APP_NAME') }}</h3>
         <p class="lead">Simple Project Reality Banner Generator</p>
     </div>
 

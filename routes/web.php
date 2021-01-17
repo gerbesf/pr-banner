@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/','\App\Http\Controllers\BannerController@proxy');
-Route::get('/banner_base','\App\Http\Controllers\BannerController@index');
+Route::get('/html','\App\Http\Controllers\BannerController@index');
 
 Route::get('/login','\App\Http\Controllers\AdminController@login');
 Route::post('/auth','\App\Http\Controllers\AdminController@auth');

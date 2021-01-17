@@ -26,14 +26,21 @@ class AdminController extends Controller
         $input_email = $request->email;
         $input_password = $request->password;
 
-        $selectUser = Administrators::where('email',$input_email)->firstOrFail();
+        try {
+            $selectUser = Administrators::where('email',$input_email)->firstOrFail();
+        }catch( \Exception $exception ){
+            return redirect()->back()->withErrors('Auth Failed');
+        }
 
         if( Hash::check( $input_password, $selectUser->password )){
             session()->put('logged',$selectUser->id);
             return redirect('/admin');
+        }else{
+            return redirect()->back()->withErrors('Auth Failed');
         }
-        return redirect('/login');
 
+
+        return redirect('/login');
     }
 
     public function logout(){
@@ -43,6 +50,9 @@ class AdminController extends Controller
 
     public function admin()
     {
+        if( Server::count() == 0 ){
+            return redirect('/admin/configure');
+        }
         $server = Server::first();
         return view('admin.dashboard',[
             'server' => $server

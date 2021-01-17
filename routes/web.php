@@ -20,6 +20,7 @@ Route::get('/banner_base','\App\Http\Controllers\BannerController@index');
 Route::get('/login','\App\Http\Controllers\AdminController@login');
 Route::post('/auth','\App\Http\Controllers\AdminController@auth');
 Route::get('/logout','\App\Http\Controllers\AdminController@logout');
+
 Route::group([
     'middleware'=>['admin'],
     'prefix' => 'admin',

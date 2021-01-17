@@ -1,6 +1,7 @@
 # PR-Server-Banner *beta*
 Project Reality Server Banner
 
+**Remove vendor folder for new install**
 
 ## Server requeriments
 ```

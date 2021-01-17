@@ -31,7 +31,7 @@ class BannerController extends Controller
         $this->configureServer();
 
         if($this->hostname){
-            @unlink(public_path('banner.jpg'));
+            #@unlink(public_path('banner.jpg')); 
             Browsershot::url(env('APP_URL').'/html')    ->setScreenshotType('jpeg', 100)
                 ->noSandbox()
                 ->windowSize(800, 240)

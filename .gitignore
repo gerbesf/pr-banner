@@ -5,7 +5,6 @@
 /public/storage
 /public/banner.jpg
 /storage/*.key
-/vendor
 .env
 .env.backup
 .phpunit.result.cache

@@ -14,7 +14,7 @@ sudo npm install -g puppeteer --unsafe-perm=true
 
 ### Sqlite - ( File Database )
 ```
- touch database/database.sqlite
+# touch database/database.sqlite
 ```
 
 #### .env
@@ -27,11 +27,11 @@ DB_CONNECTION=sqlite
 #### .env
 ```
 DB_CONNECTION=mysql
-DB_HOST=192.168.1.86
+DB_HOST=your_database_ip
 DB_PORT=3306
-DB_DATABASE=divsul_banner
+DB_DATABASE=database
 DB_USERNAME=root
-DB_PASSWORD=local@168
+DB_PASSWORD=
 ```
 
 ## Installation

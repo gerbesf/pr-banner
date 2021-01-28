@@ -19,7 +19,7 @@ class DiscordHook extends Migration
             $table->foreign('server_id')->references('id')->on('server');
             $table->text('endpoint');
             $table->text('actual_map')->nullable();
-            $table->timestamp('timestamp');
+            $table->timestamp('timestamp')->nullable();
             $table->string('status')->default('new');
         });
     }

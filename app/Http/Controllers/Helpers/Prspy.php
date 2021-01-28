@@ -48,8 +48,6 @@ trait Prspy{
 
             if($server->serverIp==$activeServer->ip){
 
-          #      dd($server);
-
                 $gVer = explode('-',$server->properties->gamever);
                 $this->hostname = substr($server->properties->hostname,14,99999);
                 $this->gamever = $gVer[0];
@@ -70,30 +68,38 @@ trait Prspy{
         $hasHook = DiscrodHooks::first();
         if( isset($hasHook->id)){
 
-            if(!$hasHook->actual_map or $hasHook->actual_map!=$this->mapname){
+            if( $hasHook->actual_map==null or  $hasHook->actual_map!=$this->mapname){
+
                 DiscrodHooks::where('id',$hasHook->id)->update([
                     'actual_map'=>$this->mapname,
                     'timestamp'=>Carbon::now()
                 ]);
-
-                $message = $hasHook->actual_map. ' - '.Carbon::now()->format('d/m/Y H:i');
+                $message = $this->mapname. ' - '.Carbon::now()->format('d/m/Y H:i');
 
                 $url = $hasHook['endpoint'];
-                $headers = [ 'Content-Type: application/json; charset=utf-8' ];
-                $POST = [ 'username' => env('APP_NAME').' - Hooker', 'content' => $message ];
+                $POST = [ 'username' => env('APP_NAME'), 'content' => $message ];
 
-
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt($ch, CURLOPT_POST, true);
-                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($POST));
-                $response   = curl_exec($ch);
+                $this->sendMessage($url,$POST);
 
             }
         }
 
+    }
+
+    public function sendMessage( $url ,$POST){
+
+        $headers = [ 'Content-Type: application/json; charset=utf-8' ];
+
+       # dd($POST);
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($POST));
+        $response   = curl_exec($ch);
+       # dd($response);
     }
 }

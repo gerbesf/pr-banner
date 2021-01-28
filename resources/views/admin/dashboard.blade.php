@@ -20,6 +20,9 @@
                             {{ $server->ip }}
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <a href="{{ route('discord',[$server->id]) }}"> Discord Hooks</a>
+                    </div>
                 </div>
             @endif
         </div>

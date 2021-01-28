@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Helpers\Prspy;
 use App\Models\Administrators;
+use App\Models\DiscrodHooks;
 use App\Models\Server;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;

@@ -26,6 +26,8 @@ Route::group([
     'prefix' => 'admin',
     'namespace'=>'\App\Http\Controllers'
 ],function(){
-    Route::get('/','AdminController@admin');
+    Route::get('/','AdminController@admin')->name('admin');
     Route::get('/configure','AdminController@configure');
+    Route::get('/discord/{id}','DiscordController@dashboard')->name('discord');
+    Route::post('/discord/{id}','DiscordController@store_hook')->name('discord_store');
 });

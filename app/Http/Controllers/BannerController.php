@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Helpers\Prspy;
+use App\Models\DiscrodHooks;
 use App\Models\Server;
 use Spatie\Browsershot\Browsershot;
 
@@ -30,8 +31,11 @@ class BannerController extends Controller
         $this->populateServers();
         $this->configureServer();
 
+        $this->dispatchHook();
+      #  dd($this->mapname);
+
         if($this->hostname){
-            #@unlink(public_path('banner.jpg')); 
+            #@unlink(public_path('banner.jpg'));
             Browsershot::url(env('APP_URL').'/html')    ->setScreenshotType('jpeg', 100)
                 ->noSandbox()
                 ->windowSize(800, 240)
@@ -69,4 +73,7 @@ class BannerController extends Controller
         ]);*/
 
     }
+
+
+
 }

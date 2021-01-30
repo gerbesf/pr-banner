@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Helpers\Discord;
 use App\Http\Controllers\Helpers\Prspy;
 use App\Models\DiscrodHooks;
 use App\Models\Server;
@@ -10,6 +11,7 @@ use Spatie\Browsershot\Browsershot;
 class BannerController extends Controller
 {
     use Prspy;
+    use Discord;
 
     /**
      * Create a new controller instance.
@@ -31,19 +33,33 @@ class BannerController extends Controller
         $this->populateServers();
         $this->configureServer();
 
-        $this->dispatchHook();
-      #  dd($this->mapname);
-
-        if($this->hostname){
-            #@unlink(public_path('banner.jpg'));
-            Browsershot::url(env('APP_URL').'/html')    ->setScreenshotType('jpeg', 100)
+        if($this->offline==true){
+            $this->dispatchHookOffline();
+            Browsershot::url(env('APP_URL').'/offline')    ->setScreenshotType('jpeg', 100)
                 ->noSandbox()
                 ->windowSize(800, 240)
                 ->save('banner.jpg');
-        }
+        }else{
+            $this->dispatchHook();
 
+            #dd($this);
+            if($this->hostname){
+                #@unlink(public_path('banner.jpg'));
+                Browsershot::url(env('APP_URL').'/html')    ->setScreenshotType('jpeg', 100)
+                    ->noSandbox()
+                    ->windowSize(800, 240)
+                    ->save('banner.jpg');
+            }
+
+
+        }
         return view('welcome');
+
         #return '<img src="'.env('APP_URL').'/banner.jpg">';
+    }
+
+    public function offline(){
+        return view('offline');
     }
 
     public function index(){

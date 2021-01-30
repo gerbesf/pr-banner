@@ -21,6 +21,7 @@ trait Prspy{
     protected $numplayers = '';
     protected $maxplayers = '';
     protected $flag_county = '';
+    protected $offline = true;
 
     /**
      * Populate Servers
@@ -40,13 +41,12 @@ trait Prspy{
      */
     protected function configureServer(){
 
-
-
         $activeServer = Server::first();
-      #  dd(env('SERVER_IP'));
         foreach($this->servers as $server){
 
             if($server->serverIp==$activeServer->ip){
+
+                $this->offline = false;
 
                 $gVer = explode('-',$server->properties->gamever);
                 $this->hostname = substr($server->properties->hostname,14,99999);
@@ -63,43 +63,4 @@ trait Prspy{
 
     }
 
-    public function dispatchHook(){
-
-        $hasHook = DiscrodHooks::first();
-        if( isset($hasHook->id)){
-
-            if( $hasHook->actual_map==null or  $hasHook->actual_map!=$this->mapname){
-
-                DiscrodHooks::where('id',$hasHook->id)->update([
-                    'actual_map'=>$this->mapname,
-                    'timestamp'=>Carbon::now()
-                ]);
-                $message = $this->mapname. ' - '.Carbon::now()->format('d/m/Y H:i');
-
-                $url = $hasHook['endpoint'];
-                $POST = [ 'username' => env('APP_NAME'), 'content' => $message ];
-
-                $this->sendMessage($url,$POST);
-
-            }
-        }
-
-    }
-
-    public function sendMessage( $url ,$POST){
-
-        $headers = [ 'Content-Type: application/json; charset=utf-8' ];
-
-       # dd($POST);
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($POST));
-        $response   = curl_exec($ch);
-       # dd($response);
-    }
 }

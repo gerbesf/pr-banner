@@ -18,6 +18,7 @@ class Server extends Migration
             $table->ipAddress('ip');
             $table->string('name');
             $table->string('status');
+            $table->timestamp('offline')->nullable();
         });
     }
 

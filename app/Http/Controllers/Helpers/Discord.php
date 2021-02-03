@@ -69,7 +69,7 @@ trait Discord {
             if( $hasHook->actual_map==null or  $hasHook->actual_map!=$this->mapname){
 
                 if($offlined==false){
-                    $tempo = str_replace('há ','',Carbon::parse( $hasHook->timestamp )->subMinutes(32)->diffForHumans());
+                    $tempo = str_replace('há ','',Carbon::parse( $hasHook->timestamp )->diffForHumans());
                     $this->sendMessage($hasHook['endpoint'] , [
                         'username' => env('APP_NAME'),
                         'content' => date('d/m/Y').' - '.date('H:i') . ' - ' .$this->mapname.' terminou com '.$tempo.' de jogo.'

@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        \Carbon\Carbon::setLocale('pt_BR');
     }
 
     /**
@@ -23,6 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        \Carbon\Carbon::setLocale('pt_BR');
     }
 }

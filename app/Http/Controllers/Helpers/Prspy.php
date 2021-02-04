@@ -46,7 +46,9 @@ trait Prspy{
      */
     protected function configureServer(){
 
-        if($this->failed) return false;
+        if($this->failed) {
+            exit(0);
+        }
 
         $activeServer = Server::first();
         foreach($this->servers as $server){

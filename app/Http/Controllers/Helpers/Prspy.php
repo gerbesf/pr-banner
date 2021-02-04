@@ -22,6 +22,7 @@ trait Prspy{
     protected $maxplayers = '';
     protected $flag_county = '';
     protected $offline = true;
+    protected $failed = false;
 
     /**
      * Populate Servers
@@ -32,14 +33,20 @@ trait Prspy{
                 ->asJson()
                 ->get();
         });
-        $this->servers = $response->servers;
-        sort($this->servers);
+
+        if( isset($response->servers)){
+            $this->servers = $response->servers;
+            sort($this->servers);
+            $this->failed = true;
+        }
     }
 
     /**
      * Configure Server
      */
     protected function configureServer(){
+
+        if($this->failed) return false;
 
         $activeServer = Server::first();
         foreach($this->servers as $server){

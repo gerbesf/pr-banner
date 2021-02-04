@@ -108,11 +108,14 @@ trait Discord {
                     $game_mode='aas';
                 }elseif($game_mode=="insurgency"){
                     $icon = '💣';
+                }elseif($game_mode=="vehicles"){
+                    $game_mode='Vehicle Warfare';
+                    $icon = '🛦';
                 }else{
                     $icon = '🎖️';
                 }
 
-                $message =  date('d/m/Y').' - '.date('H:i') . ' - ⚔ ️- ' .$this->mapname . ' -  '.$icon.'' . strtoupper($game_mode) . ' ' . $this->size_names[$this->mapsize] . '  ('.$this->numplayers.'/'.$this->maxplayers.')';
+                $message =  date('d/m/Y').' - '.date('H:i') . ' - ⚔ ' .$this->mapname . ' '.$icon.' ' . strtoupper($game_mode) . ' ' . $this->size_names[$this->mapsize] . '  ('.$this->numplayers.'/'.$this->maxplayers.')';
 
                 $res = $this->sendMessage($hasHook['endpoint'] , [
                     'username' => env('APP_NAME'),

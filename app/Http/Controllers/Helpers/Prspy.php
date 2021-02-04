@@ -28,16 +28,20 @@ trait Prspy{
      * Populate Servers
      */
     protected function populateServers() {
-        $response = \Cache::remember('prspy',60,function (){
+       # \Cache::forget('prspyx');
+        $response = \Cache::remember('prspyx',60,function (){
             return \Ixudra\Curl\Facades\Curl::to($this->uri . '/api/ServerInfo')
                 ->asJson()
                 ->get();
         });
 
+
         if( isset($response->servers)){
             $this->servers = $response->servers;
             sort($this->servers);
+        }else{
             $this->failed = true;
+            dd($response);
         }
     }
 

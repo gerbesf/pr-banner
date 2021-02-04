@@ -72,7 +72,7 @@ trait Discord {
                     $tempo = str_replace('há ','',Carbon::parse( $hasHook->timestamp )->diffForHumans());
                     $this->sendMessage($hasHook['endpoint'] , [
                         'username' => env('APP_NAME'),
-                        'content' => date('d/m/Y').' - '.date('H:i') . ' - ' .$this->mapname.' terminou com '.$tempo.' de jogo.'
+                        'content' => date('d/m/Y').' - '.date('H:i') . ' - ' .$hasHook->mapname.' terminou com '.$tempo.' de jogo.'
                     ]);
                 }
 
@@ -96,6 +96,7 @@ trait Discord {
                     'username' => env('APP_NAME'),
                     'content' => $message
                 ]);
+
             }
         }
 

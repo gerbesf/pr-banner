@@ -29,7 +29,6 @@ class DiscordController extends Controller
 
         $object = DiscrodHooks::firstOrCreate($vetor);
 
-
         DiscrodHooks::where('id',$object->id)->update([
             'status'=>'active'
         ]);

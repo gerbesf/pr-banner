@@ -42,13 +42,20 @@ class BannerController extends Controller
         }else{
             $this->dispatchHook();
 
-            #dd($this);
-            if($this->hostname){
-                #@unlink(public_path('banner.jpg'));
-                Browsershot::url(env('APP_URL').'/html')    ->setScreenshotType('jpeg', 100)
-                    ->noSandbox()
-                    ->windowSize(800, 240)
-                    ->save('banner.jpg');
+            try {
+                file_get_contents(env('APP_URL').'/html');
+
+                #dd($this);
+                if($this->hostname){
+                    #@unlink(public_path('banner.jpg'));
+                    Browsershot::url(env('APP_URL').'/html')    ->setScreenshotType('jpeg', 100)
+                        ->noSandbox()
+                        ->windowSize(800, 240)
+                        ->save('banner.jpg');
+                }
+            }catch (\Exception $exception){
+                \Log::info( $exception->getMessage() );
+                \Log::info( $exception->getTrace() );
             }
 
 

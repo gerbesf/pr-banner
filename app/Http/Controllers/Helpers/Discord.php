@@ -69,10 +69,30 @@ trait Discord {
             if( $hasHook->actual_map==null or  $hasHook->actual_map!=$this->mapname){
 
                 if($offlined==false){
-                    $tempo = str_replace('há ','',Carbon::parse( $hasHook->timestamp )->diffForHumans());
+
+                    if(Carbon::parse( $hasHook->timestamp )->diffInMinutes()>=60){
+                        $tempoHora = str_replace(['há '],'',Carbon::parse( $hasHook->timestamp )  ->diffInHours());
+                        $tempoMin = str_replace(['há '],'',Carbon::parse( $hasHook->timestamp ) ->addHour( (int) $tempoHora )->diffInMinutes());
+
+                        if($tempoHora==1 && $tempoMin==1){
+                            $tempo = $tempoHora.' hora e '.$tempoMin.' minuto'; // karai
+                        }elseif($tempoHora==1 && $tempoMin>=2){
+                            $tempo = $tempoHora.' hora e '.$tempoMin.' minutos';
+                        }elseif( $tempoMin==1){
+                            $tempo = $tempoHora.' horas e '.$tempoMin.' minuto';
+                        }else{
+                            $tempo = $tempoHora.' horas e '.$tempoMin.' minutos';
+                        }
+
+                    }else{
+                        $tempo = str_replace('há ','',Carbon::parse( $hasHook->timestamp )->diffForHumans());
+                    }
+
+                    $message  = date('d/m/Y').' - '.date('H:i') . ' - 🎉 ' .$hasHook->actual_map.' terminou com '.$tempo.' de jogo.';
+
                     $this->sendMessage($hasHook['endpoint'] , [
                         'username' => env('APP_NAME'),
-                        'content' => date('d/m/Y').' - '.date('H:i') . ' - ' .$hasHook->actual_map.' terminou com '.$tempo.' de jogo.'
+                        'content' => $message
                     ]);
                 }
 
@@ -80,18 +100,20 @@ trait Discord {
                     'actual_map'=>$this->mapname,
                     'timestamp'=>Carbon::now()
                 ]);
+
                 $game_mode = str_replace('gpm_','',$this->gametype);
 
                 if($game_mode=="cq"){
-                    $game_mode='aas';
                     $icon = '⛳';
+                    $game_mode='aas';
                 }elseif($game_mode=="insurgency"){
-                    $icon = '💣🍻';
+                    $icon = '💣';
                 }else{
                     $icon = '🎖️';
                 }
 
-                $message =  date('d/m/Y').' - '.date('H:i') . ' - ' .$this->mapname . ' - ' . strtoupper($game_mode) . ' - ' . $this->size_names[$this->mapsize] . ' - Players: '.$this->numplayers.'/'.$this->maxplayers.'';
+                $message =  date('d/m/Y').' - '.date('H:i') . ' - ⚔ ️- ' .$this->mapname . ' esta sendo iniciado em modo '.$icon.'' . strtoupper($game_mode) . ' ' . $this->size_names[$this->mapsize] . '  ('.$this->numplayers.'/'.$this->maxplayers.')';
+
                 $res = $this->sendMessage($hasHook['endpoint'] , [
                     'username' => env('APP_NAME'),
                     'content' => $message

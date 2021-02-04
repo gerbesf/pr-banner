@@ -110,7 +110,10 @@ trait Discord {
                     $icon = '💣';
                 }elseif($game_mode=="vehicles"){
                     $game_mode='Vehicle Warfare';
-                    $icon = '🛦';
+                    $icon = '⚠';
+                }elseif($game_mode=="skirmish"){
+                    $game_mode='skirmish';
+                    $icon = '🪖';
                 }else{
                     $icon = '🎖️';
                 }

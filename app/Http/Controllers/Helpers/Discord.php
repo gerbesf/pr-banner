@@ -88,12 +88,14 @@ trait Discord {
                         $tempo = str_replace('há ','',Carbon::parse( $hasHook->timestamp )->diffForHumans());
                     }
 
-                    $message  = date('d/m/Y').' - '.date('H:i') . ' - 🎉 ' .$hasHook->actual_map.' terminou com '.$tempo.' de jogo.';
+                    $message  = date('d/m/Y').' - '.date('H:i') . ' - ' .$hasHook->actual_map.' terminou com '.$tempo.' de jogo.';
 
                     $this->sendMessage($hasHook['endpoint'] , [
                         'username' => env('APP_NAME'),
                         'content' => $message
                     ]);
+
+                    sleep(50);
                 }
 
                 DiscrodHooks::where('id',$hasHook->id)->update([
@@ -104,21 +106,21 @@ trait Discord {
                 $game_mode = str_replace('gpm_','',$this->gametype);
 
                 if($game_mode=="cq"){
-                    $icon = '⛳';
+                    $icon = '🔵';
                     $game_mode='aas';
                 }elseif($game_mode=="insurgency"){
-                    $icon = '💣';
+                    $icon = '🔴';
                 }elseif($game_mode=="vehicles"){
                     $game_mode='Vehicle Warfare';
-                    $icon = '⚠';
+                    $icon = '⚫';
                 }elseif($game_mode=="skirmish"){
                     $game_mode='skirmish';
-                    $icon = '🪖';
+                    $icon = '🟡';
                 }else{
-                    $icon = '🎖️';
+                    $icon = '🔻';
                 }
 
-                $message =  date('d/m/Y').' - '.date('H:i') . ' - ⚔ ' .$this->mapname . ' '.$icon.' ' . strtoupper($game_mode) . ' ' . $this->size_names[$this->mapsize] . '  ('.$this->numplayers.'/'.$this->maxplayers.')';
+                $message =  date('d/m/Y').' - '.date('H:i') . ' - '.$icon.' ' .$this->mapname . ' ' . strtoupper($game_mode) . ' ' . $this->size_names[$this->mapsize] . '  ('.$this->numplayers.'/'.$this->maxplayers.')';
 
                 $res = $this->sendMessage($hasHook['endpoint'] , [
                     'username' => env('APP_NAME'),

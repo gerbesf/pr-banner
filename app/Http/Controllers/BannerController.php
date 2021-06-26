@@ -34,13 +34,13 @@ class BannerController extends Controller
         $this->configureServer();
 
         if($this->offline==true){
-            $this->dispatchHookOffline();
+            #$this->dispatchHookOffline();
             Browsershot::url(env('APP_URL').'/offline')    ->setScreenshotType('jpeg', 100)
                 ->noSandbox()
                 ->windowSize(800, 240)
                 ->save('banner.jpg');
         }else{
-            $this->dispatchHook();
+            #$this->dispatchHook();
 
             try {
                 file_get_contents(env('APP_URL').'/html');

@@ -41,7 +41,7 @@ trait Prspy{
             sort($this->servers);
         }else{
             $this->failed = true;
-            dd($response);
+            #dd($response);
         }
     }
 

@@ -17,10 +17,10 @@
                             <div>Players: <b><span>{{ $server->properties->numplayers }}</span> / <span>{{ $server->properties->maxplayers }}</span></b></div>
                         </div>
                         <div class="col-md-12">
-                            <div>Server IP:<span>{{ $server->serverIp }}</span>:{{ $server->queryPort }}</div>
+                            <div>Server ID:<span>{{ $server->serverId }}</span></div>
                         </div>
                         <div class="col-md-12">
-                            <a href="/admin/configure?ip={{ $server->serverIp }}" class="btn btn-success btn-sm">Select This</a>
+                            <a href="/admin/configure?ip={{ $server->serverId }}" class="btn btn-success btn-sm">Select This</a>
                         </div>
                     </div>
                 </div>

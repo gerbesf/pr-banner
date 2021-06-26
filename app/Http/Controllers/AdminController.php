@@ -65,22 +65,23 @@ class AdminController extends Controller
 
         $this->populateServers();
 
+    #    dd($this->servers);
         // Set a New Server
         if($request->ip){
             foreach($this->servers as $server){
 
-                if( $server->serverIp==$request->ip){
+                if( $server->serverId==$request->ip){
 
                     if( Server::count() == 0 ) {
                         Server::create([
-                            'ip' => $server->serverIp,
+                            'ip' => $server->serverId,
                             'name' => $this->getServerName( $server),
                             'status' => 'active'
                         ]);
                     }else{
                         $ServerEntity = Server::first();
                         Server::where('id',$ServerEntity->id)->update([
-                            'ip' => $server->serverIp,
+                            'ip' => $server->serverId,
                             'name' => $this->getServerName( $server),
                             'status' => 'active'
                         ]);

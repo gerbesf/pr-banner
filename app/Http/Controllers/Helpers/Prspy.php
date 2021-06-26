@@ -57,7 +57,7 @@ trait Prspy{
         $activeServer = Server::first();
         foreach($this->servers as $server){
 
-            if($server->serverIp==$activeServer->ip){
+            if($server->serverId==$activeServer->ip){
 
                 $this->offline = false;
 
@@ -69,7 +69,8 @@ trait Prspy{
                 $this->mapsize = $server->properties->bf2_mapsize;
                 $this->numplayers = $server->properties->numplayers;
                 $this->maxplayers = $server->properties->maxplayers;
-                $this->flag_county = $server->config->countryFlag;
+                $this->flag_county = @$server->countryFlag;
+
 
             }
         }

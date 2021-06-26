@@ -33,6 +33,11 @@ class BannerController extends Controller
         $this->populateServers();
         $this->configureServer();
 
+        if($this->failed){
+            echo ' -- Error on sync -- ';
+            die();
+        }
+
         if($this->offline==true){
             #$this->dispatchHookOffline();
             Browsershot::url(env('APP_URL').'/offline')    ->setScreenshotType('jpeg', 100)

@@ -43,6 +43,7 @@ class BannerController extends Controller
             #$this->dispatchHook();
 
             try {
+
                 file_get_contents(env('APP_URL').'/html');
 
                 #dd($this);
